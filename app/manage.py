@@ -9,7 +9,7 @@ from .db import db, init
 from .auth import password_hash
 
 def main():
-    parser=argparse.ArgumentParser(description='Administração do Visagismo B')
+    parser=argparse.ArgumentParser(description='Administraçêo do Visagismo B')
     sub=parser.add_subparsers(dest='cmd',required=True)
     create=sub.add_parser('create-user');create.add_argument('--email',required=True);create.add_argument('--barbearia',required=True);create.add_argument('--profissional',required=True);create.add_argument('--tenant',help='ID de barbearia existente; omita para criar outra')
     reset=sub.add_parser('reset-password');reset.add_argument('--email',required=True)
@@ -37,7 +37,7 @@ def main():
             con.execute('INSERT INTO users VALUES (?,?,?,?)',(secrets.token_hex(16),tid,args.email.lower().strip(),password_hash(password)))
         else:
             user=con.execute('SELECT id FROM users WHERE email=?',(args.email.lower().strip(),)).fetchone()
-            if not user:parser.error('Usuário não encontrado.')
+            if not user:parser.error('Usuário nêo encontrado.')
             con.execute('UPDATE users SET password=? WHERE id=?',(password_hash(password),user['id']))
             con.execute('DELETE FROM sessions WHERE user_id=?',(user['id'],))
     print('Acesso atualizado. Nenhuma senha foi gravada em texto puro.')

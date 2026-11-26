@@ -26,11 +26,11 @@ def current(request: Request):
 def csrf(request, value):
     user = current(request)
     if not hmac.compare_digest(user['csrf'], value):
-        raise HTTPException(403, 'Sessão do formulário expirada. Atualize a página.')
+        raise HTTPException(403, 'Sessêo do formulário expirada. Atualize a página.')
     return user
 
 def consultation(cid, user):
     with db() as con:
         row = con.execute('SELECT * FROM consultations WHERE id=? AND tenant_id=?', (cid,user['tenant_id'])).fetchone()
-    if not row: raise HTTPException(404,'Atendimento não encontrado.')
+    if not row: raise HTTPException(404,'Atendimento nêo encontrado.')
     return dict(row)

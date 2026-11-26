@@ -40,12 +40,12 @@ def run_one():
     try:
         answers=json.loads(row['answers'])
         result=analyze(folder/'photo.jpg',answers)
-        note=simulate(folder,result,answers['beard']) if answers.get('simulation') else 'Simulação não solicitada.'
+        note=simulate(folder,result,answers['beard']) if answers.get('simulation') else 'Simulaçêo nêo solicitada.'
         with db() as con:
             con.execute("UPDATE consultations SET status='pending_review',result=?,simulation_note=?,error=NULL,updated=? WHERE id=? AND status='processing'",
                         (json.dumps(result,ensure_ascii=False),note,time.time(),row['id']))
     except Exception as exc:
-        message=str(exc) if isinstance(exc,ValueError) else 'Não foi possível processar a foto. Tente uma nova captura.'
+        message=str(exc) if isinstance(exc,ValueError) else 'Nêo foi possível processar a foto. Tente uma nova captura.'
         with db() as con:
             con.execute("UPDATE consultations SET status='failed',error=?,updated=? WHERE id=?",(message,time.time(),row['id']))
     return True

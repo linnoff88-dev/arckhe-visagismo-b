@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parent.parent
-# Ambiente explícito vence; credenciais globais são lidas, nunca copiadas.
+# Ambiente explícito vence; credenciais globais sêo lidas, nunca copiadas.
 for path in [ROOT / '.env', Path.home() / 'projetos/openpcbotv2/.env', Path.home() / 'projetos/wifi/.env']:
     load_dotenv(path, override=False)
 DATA = Path(os.getenv('VISAGISMO_DATA', str(ROOT / 'data'))).resolve()

@@ -1,4 +1,4 @@
-"""Teste temporário: não abre porta nem mantém serviço ativo."""
+"""Teste temporário: nêo abre porta nem mantém serviço ativo."""
 from pathlib import Path
 from fastapi.testclient import TestClient
 from PIL import Image

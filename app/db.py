@@ -43,7 +43,7 @@ def init():
         CREATE INDEX IF NOT EXISTS consultations_tenant ON consultations(tenant_id,created);
         CREATE INDEX IF NOT EXISTS consultations_status ON consultations(status);
         ''')
-        # Migração aditiva para o fluxo público; mantém dados da versão inicial.
+        # Migraçêo aditiva para o fluxo público; mantém dados da versêo inicial.
         columns={r[1] for r in con.execute('PRAGMA table_info(consultations)')}
         for name,kind in [('access_hash','TEXT'),('access_expires','REAL')]:
             if name not in columns: con.execute(f'ALTER TABLE consultations ADD COLUMN {name} {kind}')

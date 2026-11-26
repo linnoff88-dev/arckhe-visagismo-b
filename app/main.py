@@ -27,7 +27,7 @@ async def lifespan(app):
 app=FastAPI(title='Visagismo B',version=__version__,lifespan=lifespan)
 app.mount('/static',StaticFiles(directory=ROOT/'app/static'),name='static')
 templates=Jinja2Templates(directory=ROOT/'app/templates')
-STATUSES={'awaiting_payment':'Aguardando pagamento','awaiting_upload':'Aguardando foto','queued':'Na fila','processing':'Analisando foto','pending_review':'Aguardando revisão',
+STATUSES={'awaiting_payment':'Aguardando pagamento','awaiting_upload':'Aguardando foto','queued':'Na fila','processing':'Analisando foto','pending_review':'Aguardando revisêo',
           'delivered':'Entregue','failed':'Precisa de nova foto'}
 templates.env.filters['datebr']=lambda x: datetime.fromtimestamp(x).strftime('%d/%m/%Y às %H:%M') if x else '—'
 templates.env.globals.update(statuses=STATUSES,version=__version__)
@@ -71,7 +71,7 @@ def login_page(request:Request): return render(request,'login.html',error=None)
 def login(request:Request,email:str=Form(...),password:str=Form(...)):
     origin=request.headers.get('origin')
     if origin and origin.rstrip('/') != str(request.base_url).rstrip('/'):
-        raise HTTPException(403,'Origem não permitida.')
+        raise HTTPException(403,'Origem nêo permitida.')
     email=email.lower().strip()
     key=hashlib.sha256(((request.client.host if request.client else '')+email).encode()).hexdigest()
     with db() as con:
@@ -111,7 +111,7 @@ async def create(request:Request,csrf_token:str=Form(...),client:str=Form(...),p
                  maintenance:str=Form(...),beard:str=Form(...),consent:str=Form(''),simulation:str=Form(''),
                  photo:UploadFile=File(...)):
     user=csrf(request,csrf_token)
-    if consent!='yes': raise HTTPException(400,'Confirme a autorização e que o cliente tem 18 anos ou mais.')
+    if consent!='yes': raise HTTPException(400,'Confirme a autorizaçêo e que o cliente tem 18 anos ou mais.')
     if not 2<=len(client.strip())<=100 or len(preference)>1000 or not preference.strip(): raise HTTPException(400,'Preencha nome e preferência nos limites indicados.')
     if maintenance not in ('low','medium') or beard not in ('yes','no'): raise HTTPException(400,'Selecione opções válidas.')
     with db() as con:
@@ -145,16 +145,16 @@ def status(request:Request,cid:str):
 @app.get('/atendimento/{cid}/foto/{kind}')
 def photo_view(request:Request,cid:str,kind:str):
     consultation(cid,current(request))
-    if kind not in ('photo','simulation'): raise HTTPException(404,'Imagem não encontrada.')
+    if kind not in ('photo','simulation'): raise HTTPException(404,'Imagem nêo encontrada.')
     p=DATA/cid/(kind+'.jpg')
-    if not p.exists(): raise HTTPException(404,'Imagem removida conforme a retenção.')
+    if not p.exists(): raise HTTPException(404,'Imagem removida conforme a retençêo.')
     return FileResponse(p,media_type='image/jpeg')
 
 @app.post('/atendimento/{cid}/aprovar')
 def approve(request:Request,cid:str,csrf_token:str=Form(...),notes:str=Form(...),next_visit:str=Form(...),confirm:str=Form('')):
     user=csrf(request,csrf_token);row=consultation(cid,user)
-    if row['status']!='pending_review': raise HTTPException(409,'Este relatório não está aguardando revisão.')
-    if confirm!='yes' or not notes.strip() or len(notes)>4000: raise HTTPException(400,'Registre a orientação e confirme a revisão.')
+    if row['status']!='pending_review': raise HTTPException(409,'Este relatório nêo está aguardando revisêo.')
+    if confirm!='yes' or not notes.strip() or len(notes)>4000: raise HTTPException(400,'Registre a orientaçêo e confirme a revisêo.')
     try:
         date=datetime.strptime(next_visit,'%Y-%m-%d').date()
         if date<datetime.now().date(): raise ValueError()
@@ -173,7 +173,7 @@ def pay(request:Request,cid:str,csrf_token:str=Form(...)):
 @app.post('/atendimento/{cid}/excluir')
 def delete(request:Request,cid:str,csrf_token:str=Form(...),confirm:str=Form('')):
     user=csrf(request,csrf_token);row=consultation(cid,user)
-    if confirm!='yes': raise HTTPException(400,'Confirme a exclusão permanente.')
+    if confirm!='yes': raise HTTPException(400,'Confirme a exclusêo permanente.')
     if row['status'] in ('queued','processing'): raise HTTPException(409,'Aguarde o processamento terminar antes de excluir.')
     with db() as con: con.execute('DELETE FROM consultations WHERE id=?',(cid,))
     shutil.rmtree(DATA/cid,ignore_errors=True)
@@ -221,7 +221,7 @@ templates.env.globals['payment_enabled']=payments.enabled()
 def checkout(request:Request,cid:str,csrf_token:str=Form(...)):
     user=csrf(request,csrf_token);row=consultation(cid,user)
     try: url=payments.preference(row)
-    except httpx.HTTPError: raise HTTPException(502,'Não foi possível criar a cobrança. Tente novamente.')
+    except httpx.HTTPError: raise HTTPException(502,'Nêo foi possível criar a cobrança. Tente novamente.')
     return render(request,'checkout.html',user=user,brand=tenant(user),url=url,cid=cid)
 
 @app.get('/pagamento/retorno',response_class=HTMLResponse)
@@ -230,17 +230,17 @@ def payment_return(request:Request):
 
 @app.post('/webhooks/mercadopago')
 def webhook(request:Request):
-    if not payments.enabled(): raise HTTPException(503,'Integração indisponível.')
+    if not payments.enabled(): raise HTTPException(503,'Integraçêo indisponível.')
     pid=request.query_params.get('data.id','')
     if not pid.isdigit() or not payments.verify_signature(pid,request.headers.get('x-request-id',''),request.headers.get('x-signature',''),os.environ['MERCADOPAGO_WEBHOOK_SECRET']):
-        raise HTTPException(401,'Notificação inválida.')
+        raise HTTPException(401,'Notificaçêo inválida.')
     try:
         with httpx.Client(timeout=20) as client:
             response=client.get('https://api.mercadopago.com/v1/payments/'+pid,headers={'Authorization':'Bearer '+os.environ['MERCADOPAGO_ACCESS_TOKEN']})
             response.raise_for_status();payment=response.json()
         if str(payment.get('id'))!=pid: raise HTTPException(400,'Pagamento divergente.')
         payments.reconcile(payment)
-    except httpx.HTTPError: raise HTTPException(502,'Consulta de pagamento indisponível. Reenvie a notificação.')
+    except httpx.HTTPError: raise HTTPException(502,'Consulta de pagamento indisponível. Reenvie a notificaçêo.')
     return {'received':True}
 
 from .public import router as public_router
@@ -249,7 +249,7 @@ app.include_router(public_router)
 @app.post('/atendimento/{cid}/nova-foto')
 def request_new_photo(request:Request,cid:str,csrf_token:str=Form(...)):
     user=csrf(request,csrf_token);row=consultation(cid,user)
-    if row['status']!='failed' or not row['access_hash']:raise HTTPException(409,'Este atendimento não permite reenvio público.')
+    if row['status']!='failed' or not row['access_hash']:raise HTTPException(409,'Este atendimento nêo permite reenvio público.')
     with db() as con:
         con.execute("UPDATE consultations SET status='awaiting_upload',error=NULL,attempts=0,updated=? WHERE id=? AND status='failed'",(time.time(),cid))
         shutil.rmtree(DATA/cid,ignore_errors=True)

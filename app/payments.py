@@ -1,4 +1,4 @@
-"""Checkout Pro: confirmação via recurso consultado no servidor, nunca pelo redirect."""
+"""Checkout Pro: confirmaçêo via recurso consultado no servidor, nunca pelo redirect."""
 import hashlib
 import hmac
 import os
@@ -12,7 +12,7 @@ def enabled():
     return bool(os.getenv('MERCADOPAGO_ACCESS_TOKEN') and os.getenv('MERCADOPAGO_WEBHOOK_SECRET') and os.getenv('PUBLIC_URL','').startswith('https://'))
 
 def preference(row):
-    if not enabled(): raise HTTPException(503,'Pagamento online não configurado nesta instalação.')
+    if not enabled(): raise HTTPException(503,'Pagamento online nêo configurado nesta instalaçêo.')
     if row['paid'] or row['price_cents']<=0: raise HTTPException(409,'Atendimento já pago ou sem preço configurado.')
     base=os.environ['PUBLIC_URL'].rstrip('/')
     with httpx.Client(timeout=25) as client:

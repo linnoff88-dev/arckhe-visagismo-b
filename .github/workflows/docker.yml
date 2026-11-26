@@ -1,4 +1,4 @@
-name: Testar aplicação VPS
+name: Testar aplicaçêo VPS
 on:
   push:
     branches: [main]

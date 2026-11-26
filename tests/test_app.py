@@ -162,9 +162,9 @@ def test_public_payment_gate_and_delivery(client):
     assert uploaded.status_code==200
     assert client.post(route+'/foto',data=fields,files={'photo':('photo.jpg',photo(),'image/jpeg')}).status_code==409
     worker.run_one()
-    waiting=client.get(route);assert 'aguarda revisão' in waiting.text and 'Formato estimado' not in waiting.text
-    client.post('/atendimento/'+cid+'/aprovar',data={'csrf_token':staff,'notes':'Orientação aprovada.','next_visit':'2030-01-01','confirm':'yes'})
-    done=client.get(route);assert 'Orientação aprovada' in done.text and '/foto/' not in done.text
+    waiting=client.get(route);assert 'aguarda revisêo' in waiting.text and 'Formato estimado' not in waiting.text
+    client.post('/atendimento/'+cid+'/aprovar',data={'csrf_token':staff,'notes':'Orientaçêo aprovada.','next_visit':'2030-01-01','confirm':'yes'})
+    done=client.get(route);assert 'Orientaçêo aprovada' in done.text and '/foto/' not in done.text
     assert client.get('/c/'+public_token+'invalid').status_code==404
 
 def test_public_failed_photo_can_retry_without_new_payment(client):

@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Visagismo B — Consultoria de estilo com IA para barbearias</title>
-<meta content="Aplicação em português para VPS: análise facial, revisão do barbeiro, relatório e plano de retorno. Guia de instalação e operação." name="description"/>
+<meta content="Aplicaçêo em português para VPS: análise facial, revisêo do barbeiro, relatório e plano de retorno. Guia de instalaçêo e operaçêo." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
@@ -124,7 +124,7 @@
 <a class="btn ghost" href="https://github.com/inematds/visagismo-b" rel="noopener" target="_blank">Ver no GitHub</a>
 </div>
 </div>
-<figure><img alt="Ilustração gerada por IA de barbeiro conversando com cliente sobre opções de corte" src="assets/hero.png"/></figure>
+<figure><img alt="Ilustraçêo gerada por IA de barbeiro conversando com cliente sobre opções de corte" src="assets/hero.png"/></figure>
 </div>
 </header>
 <section id="oque"><div class="wrap">
@@ -133,15 +133,15 @@
 <p class="sub">Um sistema de atendimento assistido, com identidade da barbearia e recomendações revisadas antes da entrega.</p>
 <div class="grid g3">
 <div class="card"><h3>✂️ Análise facial real</h3><p>MediaPipe calcula proporções a partir de uma foto frontal. Medidas aproximadas ajudam a conversar sobre escolhas de estilo.</p></div>
-<div class="card"><h3>✂️ Decisão profissional</h3><p>O barbeiro considera a preferência, registra ajustes, aprova o relatório e combina o retorno.</p></div>
-<div class="card"><h3>✂️ Operação na VPS</h3><p>Aplicação, worker, dados persistentes e HTTPS em Docker Compose. A consulta funciona mesmo sem gerar imagens.</p></div>
+<div class="card"><h3>✂️ Decisêo profissional</h3><p>O barbeiro considera a preferência, registra ajustes, aprova o relatório e combina o retorno.</p></div>
+<div class="card"><h3>✂️ Operaçêo na VPS</h3><p>Aplicaçêo, worker, dados persistentes e HTTPS em Docker Compose. A consulta funciona mesmo sem gerar imagens.</p></div>
 </div>
 </div></section>
 <section id="fluxo"><div class="wrap">
 <span class="chip">Como funciona</span>
 <h2>Da primeira conversa ao próximo atendimento.</h2>
 <p class="sub">O cliente começa na página pública da barbearia e envia a foto depois do pagamento. O profissional também pode iniciar o atendimento pelo painel.</p>
-<div class="flow"><span>Página + pagamento</span><span class="arr">→</span><span>Preferências + foto</span><span class="arr">→</span><span>Análise</span><span class="arr">→</span><span>Revisão</span><span class="arr">→</span><span>Relatório</span><span class="arr">→</span><span>Retorno</span></div>
+<div class="flow"><span>Página + pagamento</span><span class="arr">→</span><span>Preferências + foto</span><span class="arr">→</span><span>Análise</span><span class="arr">→</span><span>Revisêo</span><span class="arr">→</span><span>Relatório</span><span class="arr">→</span><span>Retorno</span></div>
 </div></section>
 <section id="pre"><div class="wrap">
 <span class="chip">Pré-requisitos</span>
@@ -156,26 +156,26 @@ docker compose version</pre></div>
 <section id="guia"><div class="wrap">
 <span class="chip">Guia de uso · passo a passo</span>
 <h2>Instale na VPS e faça sua primeira consulta.</h2>
-<p class="sub">Os comandos abaixo são executados na VPS. Não existe senha padrão; você cria o acesso do profissional.</p>
+<p class="sub">Os comandos abaixo sêo executados na VPS. Nêo existe senha padrêo; você cria o acesso do profissional.</p>
 <div class="step"><div class="b">1</div><div><h3>Baixe o projeto</h3><p>Clone o repositório na VPS.</p><pre>git clone https://github.com/inematds/visagismo-b.git
 cd visagismo-b</pre></div></div><div class="step"><div class="b">2</div><div><h3>Configure seu domínio</h3><p>Preencha DOMAIN e PUBLIC_URL com o mesmo domínio. O DNS deve apontar para a VPS. Chaves opcionais ficam somente no ambiente protegido.</p><pre>cp .env.example .env
 chmod 600 .env
-nano .env</pre></div></div><div class="step"><div class="b">3</div><div><h3>Suba a aplicação e o worker</h3><p>O Caddy cuida do HTTPS. Se já houver proxy na VPS, siga a adaptação descrita no VPS.md.</p><pre>docker compose config --quiet
+nano .env</pre></div></div><div class="step"><div class="b">3</div><div><h3>Suba a aplicaçêo e o worker</h3><p>O Caddy cuida do HTTPS. Se já houver proxy na VPS, siga a adaptaçêo descrita no VPS.md.</p><pre>docker compose config --quiet
 docker compose up -d --build</pre></div></div><div class="step"><div class="b">4</div><div><h3>Crie o acesso profissional</h3><p>A senha é solicitada sem aparecer no terminal. Troque os dados de exemplo pelos seus.</p><pre>docker compose exec app python -m app.manage create-user \
   --email voce@barbearia.com.br \
-  --barbearia "Sua Barbearia" --profissional "Seu nome"</pre></div></div><div class="step"><div class="b">5</div><div><h3>Atenda, revise e entregue</h3><p>Abra seu domínio e entre no painel. Em Configurações, copie a página pública para seus clientes. Registre a orientação final antes de liberar o relatório. Para acompanhar os serviços:</p><pre>docker compose ps
-docker compose logs --tail=50 worker</pre></div></div><div class="step"><div class="b">6</div><div><h3>Proteja os dados</h3><p>Faça backup em diretório privado e teste a restauração conforme VPS.md. Fotos expiram em 24 horas e relatórios em 90 dias por padrão.</p><pre>bash scripts/backup.sh /diretorio-protegido/visagismo-backups</pre></div></div></div></section>
+  --barbearia "Sua Barbearia" --profissional "Seu nome"</pre></div></div><div class="step"><div class="b">5</div><div><h3>Atenda, revise e entregue</h3><p>Abra seu domínio e entre no painel. Em Configurações, copie a página pública para seus clientes. Registre a orientaçêo final antes de liberar o relatório. Para acompanhar os serviços:</p><pre>docker compose ps
+docker compose logs --tail=50 worker</pre></div></div><div class="step"><div class="b">6</div><div><h3>Proteja os dados</h3><p>Faça backup em diretório privado e teste a restauraçêo conforme VPS.md. Fotos expiram em 24 horas e relatórios em 90 dias por padrêo.</p><pre>bash scripts/backup.sh /diretorio-protegido/visagismo-backups</pre></div></div></div></section>
 <section id="exemplos"><div class="wrap">
 <span class="chip">Exemplos</span>
 <h2>Como o serviço entra na rotina.</h2>
-<p class="sub">Cenários ilustrativos de uso, sem alegação de vendas ou aumento de faturamento.</p>
-<div class="grid g2"><div class="card"><h3>Cliente quer mudar de estilo</h3><p>Converse sobre a rotina, envie uma foto frontal autorizada e use as sugestões como ponto de partida. A revisão do barbeiro transforma o rascunho em orientação.</p></div><div class="card"><h3>Cliente quer manter o corte</h3><p>Registre como finalizar em casa e a data de retorno. Compartilhe o relatório por link revogável de 7 dias, sem expor a foto.</p></div></div><p class="sub">A simulação frontal com flux2-klein é opcional. Imagens reprovadas no filtro geométrico não são exibidas; passar no filtro não garante preservação da identidade.</p>
+<p class="sub">Cenários ilustrativos de uso, sem alegaçêo de vendas ou aumento de faturamento.</p>
+<div class="grid g2"><div class="card"><h3>Cliente quer mudar de estilo</h3><p>Converse sobre a rotina, envie uma foto frontal autorizada e use as sugestões como ponto de partida. A revisêo do barbeiro transforma o rascunho em orientaçêo.</p></div><div class="card"><h3>Cliente quer manter o corte</h3><p>Registre como finalizar em casa e a data de retorno. Compartilhe o relatório por link revogável de 7 dias, sem expor a foto.</p></div></div><p class="sub">A simulaçêo frontal com flux2-klein é opcional. Imagens reprovadas no filtro geométrico nêo sêo exibidas; passar no filtro nêo garante preservaçêo da identidade.</p>
 </div></section>
 <section id="roadmap"><div class="wrap">
 <span class="chip">Roadmap</span>
 <h2>O que está disponível e o que vem depois.</h2>
 <p class="sub">Use o piloto para medir utilidade, tempo de atendimento e custo por consulta.</p>
-<div class="phase"><div class="tag">Disponível</div><div class="d"><strong>Consulta assistida completa</strong><span>Página pública, pagamento antes da captura, login, questionário, análise, revisão, relatório, retorno, histórico e exclusão.</span></div></div><div class="phase"><div class="tag">Opcional</div><div class="d"><strong>Simulação e cobrança online</strong><span>Configure fal.ai para flux2-klein e Mercado Pago para consultas avulsas. O pagamento precisa de homologação sandbox na conta da instalação.</span></div></div><div class="phase"><div class="tag">Evolução</div><div class="d"><strong>Automação comercial</strong><span>Assinatura automática B2B, lembretes e agenda são próximos passos, não recursos desta versão.</span></div></div><p class="sub">Leia as instruções completas de <a href="https://github.com/inematds/visagismo-b/blob/main/VPS.md">instalação, privacidade, backup e operação na VPS</a>.</p>
+<div class="phase"><div class="tag">Disponível</div><div class="d"><strong>Consulta assistida completa</strong><span>Página pública, pagamento antes da captura, login, questionário, análise, revisêo, relatório, retorno, histórico e exclusêo.</span></div></div><div class="phase"><div class="tag">Opcional</div><div class="d"><strong>Simulaçêo e cobrança online</strong><span>Configure fal.ai para flux2-klein e Mercado Pago para consultas avulsas. O pagamento precisa de homologaçêo sandbox na conta da instalaçêo.</span></div></div><div class="phase"><div class="tag">Evoluçêo</div><div class="d"><strong>Automaçêo comercial</strong><span>Assinatura automática B2B, lembretes e agenda sêo próximos passos, nêo recursos desta versêo.</span></div></div><p class="sub">Leia as instruções completas de <a href="https://github.com/inematds/visagismo-b/blob/main/VPS.md">instalaçêo, privacidade, backup e operaçêo na VPS</a>.</p>
 </div></section>
 <footer>
 <div class="wrap">

@@ -20,7 +20,7 @@ def access(token):
     with db() as con:
         row=con.execute('SELECT * FROM consultations WHERE access_hash=? AND access_expires>?',
                         (hashlib.sha256(token.encode()).hexdigest(),time.time())).fetchone()
-        if not row:raise HTTPException(404,'Link de atendimento expirado ou não encontrado. Contate a barbearia.')
+        if not row:raise HTTPException(404,'Link de atendimento expirado ou nêo encontrado. Contate a barbearia.')
         brand=con.execute('SELECT * FROM tenants WHERE id=?',(row['tenant_id'],)).fetchone()
     return dict(row),dict(brand)
 
@@ -32,19 +32,19 @@ def check(token,csrf_token):
 def storefront(request:Request,tid:str):
     from .main import render
     with db() as con:brand=con.execute('SELECT * FROM tenants WHERE id=?',(tid,)).fetchone()
-    if not brand:raise HTTPException(404,'Barbearia não encontrada.')
+    if not brand:raise HTTPException(404,'Barbearia nêo encontrada.')
     return render(request,'storefront.html',brand=dict(brand))
 
 @router.post('/b/{tid}/iniciar')
 def begin(request:Request,tid:str,client:str=Form(...)):
     origin=request.headers.get('origin')
-    if origin and origin.rstrip('/')!=str(request.base_url).rstrip('/'):raise HTTPException(403,'Origem não permitida.')
+    if origin and origin.rstrip('/')!=str(request.base_url).rstrip('/'):raise HTTPException(403,'Origem nêo permitida.')
     if not 2<=len(client.strip())<=100:raise HTTPException(400,'Informe seu nome, entre 2 e 100 caracteres.')
     now=time.time();cid=secrets.token_hex(16);token=secrets.token_urlsafe(32)
     with db() as con:
         con.execute('BEGIN IMMEDIATE')
         brand=con.execute('SELECT * FROM tenants WHERE id=?',(tid,)).fetchone()
-        if not brand:raise HTTPException(404,'Barbearia não encontrada.')
+        if not brand:raise HTTPException(404,'Barbearia nêo encontrada.')
         key='public:'+hashlib.sha256((request.client.host if request.client else '').encode()).hexdigest()
         rate=con.execute('SELECT * FROM login_attempts WHERE key=?',(key,)).fetchone()
         if rate and rate['expires']>now and rate['count']>=10:raise HTTPException(429,'Aguarde 15 minutos para iniciar outra consulta.')
@@ -70,7 +70,7 @@ def customer(request:Request,token:str):
 def pay(request:Request,token:str,csrf_token:str=Form(...)):
     from .main import render
     row,brand=check(token,csrf_token)
-    if row['status']!='awaiting_payment':raise HTTPException(409,'Este atendimento não aguarda pagamento.')
+    if row['status']!='awaiting_payment':raise HTTPException(409,'Este atendimento nêo aguarda pagamento.')
     try:url=payments.preference(row)
     except httpx.HTTPError:raise HTTPException(502,'Pagamento indisponível. Tente novamente em alguns minutos.')
     return render(request,'customer_checkout.html',brand=brand,url=url,public_token=token)
@@ -79,9 +79,9 @@ def pay(request:Request,token:str,csrf_token:str=Form(...)):
 async def upload(request:Request,token:str,csrf_token:str=Form(...),client:str=Form(...),preference:str=Form(...),
                  maintenance:str=Form(...),beard:str=Form(...),consent:str=Form(''),simulation:str=Form(''),photo:UploadFile=File(...)):
     row,brand=check(token,csrf_token)
-    if row['status']!='awaiting_upload' or (row['price_cents']>0 and not row['paid']):raise HTTPException(409,'Aguarde a confirmação do pagamento antes de enviar a foto.')
+    if row['status']!='awaiting_upload' or (row['price_cents']>0 and not row['paid']):raise HTTPException(409,'Aguarde a confirmaçêo do pagamento antes de enviar a foto.')
     if consent!='yes' or not 2<=len(client.strip())<=100 or not preference.strip() or len(preference)>1000:
-        raise HTTPException(400,'Preencha nome, preferência e autorização corretamente.')
+        raise HTTPException(400,'Preencha nome, preferência e autorizaçêo corretamente.')
     if maintenance not in ('low','medium') or beard not in ('yes','no'):raise HTTPException(400,'Selecione opções válidas.')
     raw=await photo.read(MAX_UPLOAD+1)
     if len(raw)>MAX_UPLOAD:raise HTTPException(413,'Limite de 12 MB por foto.')
