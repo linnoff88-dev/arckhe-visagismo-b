@@ -4,7 +4,7 @@
 
 Style consulting for barbershops, in Portuguese, with real facial analysis, professional review, and VPS deployment.
 
-**[Public guide](https://inematds.github.io/visagismo-b/guia/en/)** · [VPS installation](VPS.md) · [Original plan](PLANO.md)
+**[Public guide](https://linnoff88-dev.github.io/arckhe-/guia/en/)** · [VPS installation](VPS.md) · [Original plan](PLANO.md)
 
 ## What’s implemented
 
@@ -17,7 +17,7 @@ Style consulting for barbershops, in Portuguese, with real facial analysis, prof
 - Required review, professional notes, follow-up, and printable report/PDF through the browser.
 - History isolated by barbershop, deletion, and automatic retention.
 - Revocable 7-day links to reports **without photos**.
-- Optional frontal simulation with flux2-klein via fal.ai or remote inemaimg; geometric filter and fallback without an image.
+- Optional frontal simulation with flux2-klein via fal.ai or remote ARCKHÉimg; geometric filter and fallback without an image.
 - In-store checkout and optional Mercado Pago Checkout Pro integration, with webhook signature verification, server-side payment lookup, and amount verification.
 - Docker Compose, Caddy/HTTPS, persistent volume, backup, and test workflow.
 
@@ -30,7 +30,7 @@ Automatic B2B subscriptions and appointment scheduling with reminders are not pa
 The target is a Linux VPS with Docker Compose, a domain, and ports 80/443 available. Starting with 2 vCPUs, 4 GB RAM, and 20 GB of disk is recommended; validate against actual load. A GPU isn’t needed when simulation uses fal.ai; without a provider, the consultation works without a generated image.
 
 ```bash
-git clone https://github.com/inematds/visagismo-b.git
+git clone https://github.com/linnoff88-dev/visagismo-b.git
 cd visagismo-b
 cp .env.example .env
 # Edit DOMAIN and PUBLIC_URL; configure optional integrations.

@@ -4,7 +4,7 @@
 
 Consultoria de estilo para barbearias, em portuguêÂªs, com anêÂ¡lise facial real, revisêÂ£o profissional e implantaêÂ§êÂ£o em **VPS**.
 
-**[Guia pêÂºblico](https://inematds.github.io/visagismo-b/guia/)** êÂ· [InstalaêÂ§êÂ£o na VPS](VPS.md) êÂ· [Plano original](PLANO.md)
+**[Guia pêÂºblico](https://linnoff88-dev.github.io/arckhe-/guia/)** êÂ· [InstalaêÂ§êÂ£o na VPS](VPS.md) êÂ· [Plano original](PLANO.md)
 
 ## O que estêÂ¡ implementado
 
@@ -17,7 +17,7 @@ Consultoria de estilo para barbearias, em portuguêÂªs, com anêÂ¡lise f
 - RevisêÂ£o obrigatêÂ³ria, notas profissionais, retorno e relatêÂ³rio imprimêÂ­vel/PDF pelo navegador.
 - HistêÂ³rico isolado por barbearia, exclusêÂ£o e retenêÂ§êÂ£o automêÂ¡tica.
 - Links revogêÂ¡veis de 7 dias para relatêÂ³rios **sem fotos**.
-- SimulaêÂ§êÂ£o frontal opcional com flux2-klein via fal.ai, ou inemaimg remoto; filtro geomêÂ©trico e fallback sem imagem.
+- SimulaêÂ§êÂ£o frontal opcional com flux2-klein via fal.ai, ou ARCKHÉimg remoto; filtro geomêÂ©trico e fallback sem imagem.
 - CobranêÂ§a no caixa e integraêÂ§êÂ£o opcional Mercado Pago Checkout Pro, com assinatura de webhook, consulta do pagamento no servidor e conferêÂªncia do valor.
 - Docker Compose, Caddy/HTTPS, volume persistente, backup e workflow de testes.
 
@@ -30,7 +30,7 @@ Assinatura automêÂ¡tica B2B e agenda com lembretes nêÂ£o fazem parte d
 O destino êÂ© uma VPS Linux com Docker Compose, domêÂ­nio e portas 80/443 disponêÂ­veis. Recomenda-se comeêÂ§ar com 2 vCPUs, 4 GB RAM e 20 GB de disco, validando carga real. NêÂ£o precisa de GPU quando a simulaêÂ§êÂ£o usa fal.ai; sem provedor, a consulta funciona sem imagem gerada.
 
 ```bash
-git clone https://github.com/inematds/visagismo-b.git
+git clone https://github.com/linnoff88-dev/visagismo-b.git
 cd visagismo-b
 cp .env.example .env
 # Edite DOMAIN e PUBLIC_URL; configure integraêÂ§êÂµes opcionais.

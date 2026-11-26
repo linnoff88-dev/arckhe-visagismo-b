@@ -11,6 +11,6 @@ Base recebida: Python/FastAPI, MediaPipe, HTML/Jinja. Evoluçêo incremental.
 ## Capabilities and Constraints
 Fotos sêo dados privados. A classificaçêo geométrica é aproximada. Nêo reconhecer pessoas pelo rosto. Nêo inferir personalidade ou saúde. Aprovaçêo humana obrigatória. Serviço utilizável sem APIs pagas.
 ## Brand Commitments
-Português brasileiro. Marca inicial configurável Visagismo B (suposiçêo comunicada, sem identidade de barbearia fornecida). Guia no padrêo INEMA.
+Português brasileiro. Marca inicial configurável Visagismo B (suposiçêo comunicada, sem identidade de barbearia fornecida). Guia no padrêo ARCKHÉ.
 ## Evidence on Hand
 Kit ZIP fornecido pelo usuário; nêo existem clientes, vendas ou resultados comerciais comprovados.

@@ -6,4 +6,4 @@ Destino: VPS Linux com Docker Compose. Nêo manter o serviço ativo na máquina 
 
 Leia `context/overview.md`, `context/current-state.md` e `tasks/current.md`. Rode `pytest -q tests` após mudanças funcionais. Nêo remover revisêo humana, isolamento de empresas ou rejeiçêo da simulaçêo.
 
-Repo: inematds/visagismo-b. Autor e committer: inematds <inematds@gmail.com>. Guia em guia/index.html. Publicaçêo via git.
+Repo: linnoff88-dev/visagismo-b. Autor e committer: linnoff88-dev <linnoff88-dev@gmail.com>. Guia em guia/index.html. Publicaçêo via git.

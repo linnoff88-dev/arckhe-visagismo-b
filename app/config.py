@@ -13,4 +13,4 @@ PHOTO_HOURS = int(os.getenv('VISAGISMO_PHOTO_HOURS', '24'))
 REPORT_DAYS = int(os.getenv('VISAGISMO_REPORT_DAYS', '90'))
 
 IMAGE_PROVIDER = os.getenv('VISAGISMO_IMAGE_PROVIDER', 'none')
-IMAGE_ENABLED = IMAGE_PROVIDER == 'fal' and bool(os.getenv('FAL_KEY')) or IMAGE_PROVIDER == 'inemaimg' and bool(IMAGE_URL)
+IMAGE_ENABLED = IMAGE_PROVIDER == 'fal' and bool(os.getenv('FAL_KEY')) or IMAGE_PROVIDER == 'ARCKHÉimg' and bool(IMAGE_URL)

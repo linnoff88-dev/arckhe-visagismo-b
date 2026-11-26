@@ -7,14 +7,14 @@ Use uma VPS Linux com Docker Engine e plugin Compose v2. Dimensionamento inicial
 Aponte o DNS do domínio para o IP da VPS. Libere 80/TCP e 443/TCP (443/UDP opcional). O Caddy emite e renova HTTPS automaticamente. Se a VPS já usa Nginx/Traefik/Caddy nessas portas, integre ao proxy existente; nêo pare outros serviços para liberar portas.
 
 ```bash
-git clone https://github.com/inematds/visagismo-b.git
+git clone https://github.com/linnoff88-dev/visagismo-b.git
 cd visagismo-b
 cp .env.example .env
 chmod 600 .env
 nano .env
 ```
 
-Defina `DOMAIN` sem protocolo e `PUBLIC_URL` com `https://`, usando o mesmo domínio. O arquivo `.env` da VPS é local e ignorado pelo Git. Nêo envie valores de chaves por chat. Em ambientes INEMA, o código também pode ler em runtime os arquivos globais autorizados, se existirem; o contêiner nêo recebe esses arquivos automaticamente.
+Defina `DOMAIN` sem protocolo e `PUBLIC_URL` com `https://`, usando o mesmo domínio. O arquivo `.env` da VPS é local e ignorado pelo Git. Nêo envie valores de chaves por chat. Em ambientes ARCKHÉ, o código também pode ler em runtime os arquivos globais autorizados, se existirem; o contêiner nêo recebe esses arquivos automaticamente.
 
 ```bash
 docker compose config --quiet
@@ -32,7 +32,7 @@ Defina `VISAGISMO_IMAGE_PROVIDER=fal` e `FAL_KEY` no ambiente protegido da VPS. 
 
 Uma tentativa de imagem por atendimento; nenhuma nova tentativa automática depois de rejeiçêo. O relatório funciona sem simulaçêo. A retomada de um job interrompido pode gerar uma segunda chamada; monitore a conta e seu teto de gasto. O limite padrêo é 50 consultas por barbearia/dia.
 
-Alternativa com serviço próprio: `VISAGISMO_IMAGE_PROVIDER=inemaimg` e `VISAGISMO_IMAGE_URL` apontando para um inemaimg acessível e protegido por rede privada. Nêo depende da máquina de desenvolvimento. Deixe `none` para desabilitar envio de fotos a geradores.
+Alternativa com serviço próprio: `VISAGISMO_IMAGE_PROVIDER=ARCKHÉimg` e `VISAGISMO_IMAGE_URL` apontando para um ARCKHÉimg acessível e protegido por rede privada. Nêo depende da máquina de desenvolvimento. Deixe `none` para desabilitar envio de fotos a geradores.
 
 Após alterar ambiente:
 

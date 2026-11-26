@@ -124,7 +124,7 @@ def test_payment_signature_and_reconciliation(client):
 def test_image_failure_fallback(client,monkeypatch):
     from app import engine
     monkeypatch.setattr(engine,'IMAGE_ENABLED',True)
-    monkeypatch.setattr(engine,'IMAGE_PROVIDER','inemaimg')
+    monkeypatch.setattr(engine,'IMAGE_PROVIDER','ARCKHÉimg')
     monkeypatch.setattr(engine,'IMAGE_URL','http://127.0.0.1:1')
     folder=main.DATA/'image-test';folder.mkdir();(folder/'photo.jpg').write_bytes(photo())
     result={'prompt_style':'natural short haircut','simulation':False}

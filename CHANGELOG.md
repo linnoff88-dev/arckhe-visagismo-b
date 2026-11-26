@@ -6,4 +6,4 @@ Entrada pública por barbearia, pagamento antes da captura, acompanhamento priva
 
 ## v1.0.0 — 2026-09-17
 
-Aplicaçêo pt-BR para VPS: painel por barbearia, análise MediaPipe compatível com ARM64, revisêo humana, fila SQLite, retorno, relatórios privados, cobrança manual e adaptador Mercado Pago, ediçêo frontal flux2-klein, Compose/HTTPS, backup, testes e guia INEMA. Kit legado preservado para referência.
+Aplicaçêo pt-BR para VPS: painel por barbearia, análise MediaPipe compatível com ARM64, revisêo humana, fila SQLite, retorno, relatórios privados, cobrança manual e adaptador Mercado Pago, ediçêo frontal flux2-klein, Compose/HTTPS, backup, testes e guia ARCKHÉ. Kit legado preservado para referência.
